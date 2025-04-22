@@ -7,8 +7,14 @@
 <h1>Aktuální cena zlata</h1>
 <p>Cena: {{ gold_price }} USD</p>
 <p>Aktuální čas: {{ gold_time }}</p>
+<p>Počet oz (2414406,5938)</p>
+<p>Zlato {{ 2414406.5938 * gold_price }} USD</p>
 <h1>Aktuální cena microsoftu</h1>
 <p>Cena: {{ microsoft_price }} USD</p>
 <p>Aktuální čas: {{ microsoft_time }}</p>
+<p>Počet akcií (14407530)</p>
+<p>Microsoft {{ 14407530 * microsoft_price }} USD</p>
+<h1>Součet</h1>
+<p> {{ (2414406.5938 * gold_price) + (14407530 * microsoft_price) }} USD</p>
 </body>
 </html>
