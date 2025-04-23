@@ -25,5 +25,6 @@ services:
     App\Service\StockPriceService:
         arguments:
             $apiKey: '%env(NINJAS_API_KEY)%'
+    App\Service\ExchangeRateService: ~
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
