@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\PriceRecord;
 use App\Service\ExchangeRateService;
 use App\Service\GoldPriceService;
 use App\Service\StockPriceService;
@@ -46,6 +45,23 @@ class PriceController extends AbstractController
             'microsoft_time' => $microsoftData['time'],
             'gold_time' => $goldData['time'],
             'usd_to_czk_rate' => $usdToCzkRate,
+        ]);
+    }
+
+    #[Route('/prices/chart', name: 'prices_chart')]
+    public function chart(PriceRecordService $priceRecordService): Response
+    {
+        $records = $priceRecordService->getAllRecords();
+
+        $data = array_map(function ($record) {
+            return [
+                'time' => $record->getRecordedAt()->format('Y-m-d H:i:s'),
+                'sum' => $record->getGoldPriceCzk() + $record->getMicrosoftPriceCzk(),
+            ];
+        }, $records);
+
+        return $this->render('prices/chart.html.twig', [
+            'chartData' => $data,
         ]);
     }
 }

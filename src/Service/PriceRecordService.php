@@ -30,4 +30,9 @@ class PriceRecordService
         $this->entityManager->persist($priceRecord);
         $this->entityManager->flush();
     }
+
+    public function getAllRecords(): array
+    {
+        return $this->entityManager->getRepository(PriceRecord::class)->findAll();
+    }
 }

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<canvas id="priceChart" width="400" height="200"></canvas>
+<script>
+    const ctx = document.getElementById('priceChart').getContext('2d');
+    const chartData = {{ chartData|json_encode|raw }};
+    const labels = chartData.map(data => data.time);
+    const data = chartData.map(data => data.sum);
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Součet ceny zlata a Microsoftu (CZK)',
+                data: data,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: false,
+            }]
+        },
+        options: {
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Čas'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Cena (CZK)'
+                    }
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>
