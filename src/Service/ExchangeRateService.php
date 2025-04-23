@@ -16,7 +16,7 @@ class ExchangeRateService
 
     public function getUsdToCzkRate(): ?float
     {
-        $response = $this->client->request('GET', 'https://www.kurzy.cz/kurzy-men/aktualni/czk-usd/');
+        $response = $this->client->request('GET', 'https://www.kurzy.cz/kurzy-men/nejlepsi-kurzy/USD-americky-dolar/');
 
         if ($response->getStatusCode() !== 200) {
             return null;
@@ -28,11 +28,11 @@ class ExchangeRateService
         try {
             // Najdeme první `<br>` obsahující text "za 1 USD ="
             $rateText = $crawler->filter('b')->reduce(function (Crawler $node) {
-                return str_contains($node->text(), '1 USD =');
+                return str_contains($node->text(), '1USD =');
             })->first()->text();
 
             // Extrahujeme číselnou hodnotu z textu
-            preg_match('/1 USD = ([0-9.,]+)/', $rateText, $matches);
+            preg_match('/1USD = ([0-9.,]+)/', $rateText, $matches);
 
             if (!isset($matches[1])) {
                 return null;
